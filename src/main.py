@@ -10,6 +10,8 @@ from supervisely_lib.geometry.bitmap import Bitmap
 import numpy as np
 import cv2
 import pycocotools._mask as _mask
+from collections import defaultdict
+from supervisely_lib.video_annotation.key_id_map import KeyIdMap
 
 
 my_app = sly.AppService()
@@ -22,6 +24,8 @@ logger = sly.logger
 train_tag = 'train'
 val_tag = 'val'
 archive_ext = '.zip'
+frame_rate = 10
+video_ext = '.mp4'
 
 
 def decode(rleObjs):
@@ -57,6 +61,9 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     anns_fine_paths = glob.glob(search_anns)
     anns_fine_paths.sort()
 
+    ovis_classes = {}
+    id_to_obj_classes = {}
+
     for ann_path in anns_fine_paths:
         ann_name = str(Path(ann_path).name)
         arch_name = sly.fs.get_file_name(ann_name).split('_')[1] + archive_ext
@@ -74,11 +81,77 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
         images_dirs = os.listdir(imgs_dir_path)
         ann_json = sly.json.load_json_file(ann_path)
 
-        anns = ann_json['annotations']
-        rle = anns[0]['segmentations'][0]
-        mask = decode(rle)
+        videos = ann_json['videos']
+        ovis_anns = ann_json['annotations']
 
-        a = 0
+
+        for category in ann_json['categories']:
+            if category['id'] not in ovis_classes.keys():
+                ovis_classes[category['id']] = category['name']
+                id_to_obj_classes[category['id']] = sly.ObjClass(category['name'], sly.Bitmap)
+            else:
+                if ovis_classes[category['id']] != category['name']:  #TODO test it!!!
+                    logger.warn('Category with id {} corresponds to the value {}, not {}. Check your input annotations'.format(category['id'], ovis_classes[category['id']], category['name']))
+
+
+        anns = defaultdict(list)
+        for ovis_ann in ovis_anns:
+            anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
+
+        for video_data in videos:
+
+            curr_anns = anns[video_data['id']]
+            video_objects = {}
+            for curr_ann in curr_anns:
+                video_objects[curr_ann[1]] = sly.VideoObject(id_to_obj_classes[curr_ann[0]])
+
+            frames = []
+            for idx in range(500):
+                figures = []
+                for curr_ann in curr_anns:
+                    ovis_geom = curr_ann[2][idx]
+                    if ovis_geom:
+                        mask = decode(ovis_geom).astype(bool)
+                        geom = sly.Bitmap(mask)
+                        figure = sly.VideoFigure(video_objects[curr_ann[1]], geom, idx)
+                        figures.append(figure)
+                new_frame = sly.Frame(idx, figures)
+                frames.append(new_frame)
+
+
+
+            a=0
+
+
+            #=============================create video===============================================================
+            img_size = (video_data['width'], video_data['height'])
+            video_folder = video_data['file_names'][0].split('/')[0]
+            video_name = video_folder + video_ext
+            images_path = os.path.join(imgs_dir_path, video_folder)
+            if not sly.fs.dir_exists(images_path):
+                logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
+                continue
+            images = os.listdir(images_path)
+            progress = sly.Progress('Create video and figures for frame', len(images), app_logger)
+            video_path = os.path.join(extract_dir, video_name)
+            video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'MP4V'), frame_rate, img_size)
+            for curr_ovis_im_path in video_data['file_names']:
+                curr_im_path = os.path.join(imgs_dir_path, curr_ovis_im_path)
+                if not sly.fs.file_exists(curr_im_path):
+                    logger.warn('There is no image {} in {} folder, but it must be. Video will be skipped.'.format(
+                        curr_ovis_im_path.split('/')[1], video_name))
+                    break  #TODO no image how to continue
+                video.write(cv2.imread(curr_im_path))
+                progress.iter_done_report()
+            video.release()
+            # =======================================================================================================
+
+
+
+
+
+        rle = ovis_anns[0]['segmentations'][0]
+        mask = decode(rle)
 
 
     #try:
