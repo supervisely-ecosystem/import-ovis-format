@@ -80,6 +80,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     api.project.update_meta(new_project.id, meta.to_json())
 
     for ann_path in anns_fine_paths:
+        logger.warn('{}'.format(ann_path))
         ann_name = str(Path(ann_path).name)
         arch_name = sly.fs.get_file_name(ann_name).split('_')[1] + archive_ext
         arch_path = os.path.join(input_dir, arch_name)
@@ -121,6 +122,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
 
         for video_data in videos:
+            logger.warn('{}'.format(video_data))
             no_image = False
             curr_anns = anns[video_data['id']]
             video_objects = {}
@@ -133,7 +135,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             video_name = video_folder + video_ext
             images_path = os.path.join(imgs_dir_path, video_folder)
             if not sly.fs.dir_exists(images_path):
-                logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
+                #logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
                 continue
             images = os.listdir(images_path)
             progress = sly.Progress('Create video', len(videos), app_logger)
