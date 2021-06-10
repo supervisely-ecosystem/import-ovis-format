@@ -88,10 +88,10 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             logger.warn('There is no archive {} in the input data, but it must be'.format(arch_name))
             continue
 
-        try:
-           shutil.unpack_archive(arch_path, input_dir)
-        except Exception('Unknown archive format {}'.format(arch_name)):
-           my_app.stop()
+        if sly.fs.file_exists(arch_path):
+            logger.warn('{}_{}'.format(arch_path, sly.fs.get_file_size(arch_path)))
+        shutil.unpack_archive(arch_path, input_dir)
+
 
         imgs_dir_path = os.path.join(input_dir, sly.fs.get_file_name(arch_name))
         ann_json = sly.json.load_json_file(ann_path)
