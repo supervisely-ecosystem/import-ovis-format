@@ -90,7 +90,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
         #shutil.unpack_archive(arch_path, input_dir)
         if zipfile.is_zipfile(archive_path):
             with zipfile.ZipFile(archive_path, 'r') as archive:
-                archive.extractall(extract_dir)
+                archive.extractall(input_dir)
         else:
             raise Exception("No such file".format(INPUT_FILE))
 
