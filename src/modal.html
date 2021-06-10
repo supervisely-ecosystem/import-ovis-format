@@ -1,12 +1,14 @@
 <div class="fflex">
-    <el-slider
-      class="ml10 mr10"
-      style="width: 450px"
-      :min="1"
-      :max="100"
-      v-model="state.samplePercent"
-      show-input
-      @change="state.samplePercent = $event;"
-    >
-    </el-slider>
+    <sly-field title="Train/Val split ratio"
+               description="set dataset division ratio. E.g. 80 - means 80% of source dataset will be considered as 'train' set, and other 20% - as 'validation' set">
+        <el-slider
+          class="ml10 mr10"
+          style="width: 450px"
+          :min="1"
+          :max="100"
+          v-model="state.samplePercent"
+          show-input
+          @change="state.samplePercent = $event;">
+        </el-slider>
+    </sly-field>
 </div>
