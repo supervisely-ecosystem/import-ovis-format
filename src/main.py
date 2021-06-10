@@ -80,7 +80,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     api.project.update_meta(new_project.id, meta.to_json())
 
     for ann_path in anns_fine_paths:
-        logger.warn('{}'.format(ann_path))
         ann_name = str(Path(ann_path).name)
         arch_name = sly.fs.get_file_name(ann_name).split('_')[1] + archive_ext
         arch_path = os.path.join(input_dir, arch_name)
@@ -88,10 +87,12 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             logger.warn('There is no archive {} in the input data, but it must be'.format(arch_name))
             continue
 
-        if sly.fs.file_exists(arch_path):
-            logger.warn('{}_{}'.format(arch_path, sly.fs.get_file_size(arch_path)))
-        shutil.unpack_archive(arch_path, input_dir)
-
+        #shutil.unpack_archive(arch_path, input_dir)
+        if zipfile.is_zipfile(archive_path):
+            with zipfile.ZipFile(archive_path, 'r') as archive:
+                archive.extractall(extract_dir)
+        else:
+            raise Exception("No such file".format(INPUT_FILE))
 
         imgs_dir_path = os.path.join(input_dir, sly.fs.get_file_name(arch_name))
         ann_json = sly.json.load_json_file(ann_path)
