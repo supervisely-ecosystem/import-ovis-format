@@ -122,7 +122,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
 
         for video_data in videos:
-            logger.warn('{}'.format(video_data))
             no_image = False
             curr_anns = anns[video_data['id']]
             video_objects = {}
