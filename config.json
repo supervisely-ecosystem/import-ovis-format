@@ -10,7 +10,7 @@
   "modal_template": "src/modal.html",
   "modal_template_state": {"samplePercent":  25},
   "task_location": "workspace_tasks",
-  "icon": "https://i.imgur.com/UzgppSx.png",
+  "icon": "https://i.imgur.com/i0WHkUF.png",
   "icon_background": "#FFFFFF",
   "context_menu": {
     "target": ["files_folder", "files_file"]
