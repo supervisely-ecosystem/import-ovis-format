@@ -56,7 +56,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     api.file.download(TEAM_ID, cur_files_path, archive_path)
 
     if tarfile.is_tarfile(archive_path):
-        logger.warn('archive_path tar: {}'.format(archive_path))
         with tarfile.open(archive_path) as archive:
             archive.extractall(extract_dir)
     else:
@@ -88,12 +87,11 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             logger.warn('There is no archive {} in the input data, but it must be'.format(arch_name))
             continue
 
-        if INPUT_FILE:
-            if zipfile.is_zipfile(arch_path):
-                with zipfile.ZipFile(arch_path, 'r') as archive:
-                    archive.extractall(input_dir)
-            else:
-                raise Exception("No such file".format(archive_path))
+        if zipfile.is_zipfile(arch_path):
+            with zipfile.ZipFile(arch_path, 'r') as archive:
+                archive.extractall(input_dir)
+        else:
+            raise Exception("No such file".format(archive_path))
 
         imgs_dir_path = os.path.join(input_dir, sly.fs.get_file_name(arch_name))
         ann_json = sly.json.load_json_file(ann_path)
@@ -136,7 +134,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             video_name = video_folder + video_ext
             images_path = os.path.join(imgs_dir_path, video_folder)
             if not sly.fs.dir_exists(images_path):
-                #logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
+                logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
                 continue
             images = os.listdir(images_path)
             progress = sly.Progress('Create video', len(videos), app_logger)
