@@ -88,16 +88,12 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             logger.warn('There is no archive {} in the input data, but it must be'.format(arch_name))
             continue
 
-        #shutil.unpack_archive(arch_path, input_dir)
-        logger.warn('{}'.format(os.listdir(input_dir)))
-        logger.warn('archive_path: {}'.format(archive_path))
-        logger.warn('arch_path: {}'.format(arch_path))
-        if zipfile.is_zipfile(arch_path):
-            logger.warn('is it work: {}'.format(archive_path))
-            with zipfile.ZipFile(arch_path, 'r') as archive:
-                archive.extractall(input_dir)
-        else:
-            raise Exception("No such file".format(archive_path))
+        if INPUT_FILE:
+            if zipfile.is_zipfile(arch_path):
+                with zipfile.ZipFile(arch_path, 'r') as archive:
+                    archive.extractall(input_dir)
+            else:
+                raise Exception("No such file".format(archive_path))
 
         imgs_dir_path = os.path.join(input_dir, sly.fs.get_file_name(arch_name))
         ann_json = sly.json.load_json_file(ann_path)
