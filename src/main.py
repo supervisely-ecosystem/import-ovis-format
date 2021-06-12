@@ -87,7 +87,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             logger.warn('There is no archive {} in the input data, but it must be'.format(arch_name))
             continue
 
-        shutil.unpack_archive(arch_path, input_dir)
+        #shutil.unpack_archive(arch_path, input_dir)
         if zipfile.is_zipfile(archive_path):
             with zipfile.ZipFile(archive_path, 'r') as archive:
                 archive.extractall(input_dir)
