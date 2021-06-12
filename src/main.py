@@ -87,12 +87,12 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             logger.warn('There is no archive {} in the input data, but it must be'.format(arch_name))
             continue
 
-        #shutil.unpack_archive(arch_path, input_dir)
+        shutil.unpack_archive(arch_path, input_dir)
         if zipfile.is_zipfile(archive_path):
             with zipfile.ZipFile(archive_path, 'r') as archive:
                 archive.extractall(input_dir)
         else:
-            raise Exception("No such file".format(INPUT_FILE))
+            raise Exception("No such file".format(archive_path))
 
         imgs_dir_path = os.path.join(input_dir, sly.fs.get_file_name(arch_name))
         ann_json = sly.json.load_json_file(ann_path)
@@ -135,7 +135,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             video_name = video_folder + video_ext
             images_path = os.path.join(imgs_dir_path, video_folder)
             if not sly.fs.dir_exists(images_path):
-                #logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
+                logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
                 continue
             images = os.listdir(images_path)
             progress = sly.Progress('Create video', len(videos), app_logger)
@@ -157,10 +157,14 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             frames = []
             for idx in range(len(images)):
                 figures = []
-                for curr_ann in curr_anns:
+                for fig_id, curr_ann in enumerate(curr_anns):
                     ovis_geom = curr_ann[2][idx]
                     if ovis_geom:
                         mask = decode(ovis_geom).astype(bool)
+                        if img_size[1] % 2 == 1:
+                            mask[mask.shape[0] - 1, :] = False
+                        if img_size[0] % 2 == 1:
+                            mask[:, mask.shape[1] - 1] = False
                         geom = sly.Bitmap(mask)
                         figure = sly.VideoFigure(video_objects[curr_ann[1]], geom, idx)
                         figures.append(figure)
