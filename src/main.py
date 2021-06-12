@@ -88,15 +88,11 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             continue
 
         #shutil.unpack_archive(arch_path, input_dir)
-        logger.warn('{}'.format(os.listdir(input_dir)))
-        logger.warn('archive_path: {}'.format(archive_path))
-        logger.warn('arch_path: {}'.format(arch_path))
         if zipfile.is_zipfile(archive_path):
-            logger.warn('is it work: {}'.format(archive_path))
             with zipfile.ZipFile(archive_path, 'r') as archive:
                 archive.extractall(input_dir)
         else:
-            raise Exception("No such file".format(archive_path))
+            raise Exception("No such file".format(INPUT_FILE))
 
         imgs_dir_path = os.path.join(input_dir, sly.fs.get_file_name(arch_name))
         ann_json = sly.json.load_json_file(ann_path)
@@ -161,14 +157,10 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             frames = []
             for idx in range(len(images)):
                 figures = []
-                for fig_id, curr_ann in enumerate(curr_anns):
+                for curr_ann in curr_anns:
                     ovis_geom = curr_ann[2][idx]
                     if ovis_geom:
                         mask = decode(ovis_geom).astype(bool)
-                        if img_size[1] % 2 == 1:
-                            mask[mask.shape[0] - 1, :] = False
-                        if img_size[0] % 2 == 1:
-                            mask[:, mask.shape[1] - 1] = False
                         geom = sly.Bitmap(mask)
                         figure = sly.VideoFigure(video_objects[curr_ann[1]], geom, idx)
                         figures.append(figure)
