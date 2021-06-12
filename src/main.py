@@ -138,7 +138,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             video_name = video_folder + video_ext
             images_path = os.path.join(imgs_dir_path, video_folder)
             if not sly.fs.dir_exists(images_path):
-                logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
+                #logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
                 continue
             images = os.listdir(images_path)
             progress = sly.Progress('Create video', len(videos), app_logger)
