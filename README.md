@@ -35,13 +35,13 @@ Upload your data in `OVIS` format to `Team Files` (for example you can create `i
 .
 ├── train.zip
 │   ├── 0b4b662c
-|	|	├── img_0000001.jpg
-|	|	├── img_0000002.jpg
-|	|	├── ...
+|   |	├── img_0000001.jpg
+|   |	├── img_0000002.jpg
+|   |	├── ...
 │   ├── 2f477d05
-|	|	├── img_0000001.jpg
-|	|	├── img_0000002.jpg
-|	|	├── ...
+|   |	├── img_0000001.jpg
+|   |	├── img_0000002.jpg
+|   |	├── ...
 │   └── ...
 │    
 └── annotations_train.json
