@@ -51,7 +51,7 @@ Upload your data in `OVIS` format to `Team Files` (for example you can create `i
 
 If you will drag and drop archive with parent directory instead of its content, import will crash.
 
-Annotations file must contain `annotations` in its name. The images archive must have a name that matches the line in the annotation file name after the `_` and before the extension(like annotations_train.json and train.zip). If you do not comply with these conditions import will crash.
+Annotations file must contain `annotations` in its name. The images archive must have a name that matches the line in the annotation file name after the `_` and before the extension(like `annotations_train.json` and `train.zip`). If you do not comply with these conditions import will crash.
 
 ## How To Run 
 
