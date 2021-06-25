@@ -61,15 +61,11 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 <img src="https://i.imgur.com/dJr5sLz.png"/>
 
-**Step 3**: Select slider value to split images in `train` folders with `train` and `val` tags.
-
-<img src="https://i.imgur.com/vXWYwhR.png" width="600px"/>
-
 
 
 ## How to use
 
-Resulting project will be placed to your current `Workspace` with the same name as the `ovis` archive. Videos in datasets will have tags (`train`, `val`) corresponding to the ratio, exposed in the slider.
+Resulting project will be placed to your current `Workspace` with the same name as the `ovis` archive. Videos in datasets will have tags (`train`, `val`, `test`) corresponding to input data.
 
 <img src="https://i.imgur.com/UC0ygAH.png"/>
 
