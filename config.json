@@ -7,8 +7,6 @@
   "description": "Import OVIS to Supervisely",
   "docker_image": "supervisely/base-py-sdk:6.1.64",
   "main_script": "src/main.py",
-  "modal_template": "src/modal.html",
-  "modal_template_state": {"samplePercent":  25},
   "task_location": "workspace_tasks",
   "icon": "https://i.imgur.com/i0WHkUF.png",
   "icon_background": "#FFFFFF",

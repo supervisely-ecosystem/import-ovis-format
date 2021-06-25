@@ -1,10 +1,9 @@
-import os, random
-import zipfile, json, tarfile
+import os
+import zipfile, tarfile
 import supervisely_lib as sly
 import glob
 from supervisely_lib.io.fs import get_file_name, get_file_name_with_ext
 from pathlib import Path
-import shutil
 import cv2
 import pycocotools._mask as _mask
 from collections import defaultdict
@@ -17,14 +16,13 @@ TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 INPUT_DIR = os.environ.get("modal.state.slyFolder")
 INPUT_FILE = os.environ.get("modal.state.slyFile")
-samplePercent = int(os.environ['modal.state.samplePercent']) / 100
 PROJECT_NAME = 'OVIS'
 logger = sly.logger
 archive_ext = '.zip'
 frame_rate = 5
 video_ext = '.mp4'
-train_tag = 'train'
-val_tag = 'val'
+valid = 'valid'
+val = 'val'
 
 
 def decode(rleObjs):
@@ -73,16 +71,22 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     new_project = api.project.create(WORKSPACE_ID, project_name, type=sly.ProjectType.VIDEOS,
                                      change_name_if_conflict=True)
 
-    tag_meta_train = sly.TagMeta(train_tag, sly.TagValueType.NONE)
-    tag_meta_val = sly.TagMeta(val_tag, sly.TagValueType.NONE)
-    tag_collection = sly.TagMetaCollection([tag_meta_train, tag_meta_val])
-    meta = sly.ProjectMeta(tag_metas=tag_collection)
+    meta = sly.ProjectMeta()
     api.project.update_meta(new_project.id, meta.to_json())
 
     for ann_path in anns_fine_paths:
         ann_name = str(Path(ann_path).name)
         arch_name = sly.fs.get_file_name(ann_name).split('_')[1] + archive_ext
         arch_path = os.path.join(input_dir, arch_name)
+        curr_tag_name = sly.fs.get_file_name(arch_path)
+        if curr_tag_name == valid:
+            curr_tag_name = val
+        curr_tag_meta = sly.TagMeta(curr_tag_name, sly.TagValueType.NONE)
+        new_meta = sly.ProjectMeta(tag_metas=sly.TagMetaCollection([curr_tag_meta]))
+        meta = meta.merge(new_meta)
+        api.project.update_meta(new_project.id, meta.to_json())
+        tag = VideoTag(curr_tag_meta)
+        tag_collection = VideoTagCollection([tag])
         if not sly.fs.file_exists(arch_path):
             logger.warn('There is no archive {} in the input data, but it must be'.format(arch_name))
             continue
@@ -173,11 +177,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             file_info = api.video.upload_paths(new_dataset.id, [video_name], [video_path])
             new_frames_collection = sly.FrameCollection(frames)
             new_objects = sly.VideoObjectCollection(list(video_objects.values()))
-            if random.random() < samplePercent:
-                tag = VideoTag(tag_meta_val)
-            else:
-                tag = VideoTag(tag_meta_train)
-            tag_collection = VideoTagCollection([tag])
             ann = sly.VideoAnnotation((img_size[1], img_size[0]), len(frames), objects=new_objects,
                                       frames=new_frames_collection, tags=tag_collection)
             logger.info('Create annotation for video {}'.format(video_name))
