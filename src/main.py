@@ -152,9 +152,9 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                     no_image = True
                     break
                 video.write(cv2.imread(curr_im_path))
+                progress.iter_done_report()
             if no_image:
                 continue
-            progress.iter_done_report()
             video.release()
             # =======================================================================================================
             frames = []
