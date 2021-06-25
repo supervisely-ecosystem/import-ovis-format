@@ -72,7 +72,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                                      change_name_if_conflict=True)
 
     meta = sly.ProjectMeta()
-    api.project.update_meta(new_project.id, meta.to_json())
 
     for ann_path in anns_fine_paths:
         ann_name = str(Path(ann_path).name)
@@ -103,8 +102,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
         videos = ann_json['videos']
         ovis_anns = ann_json['annotations']
         if not ovis_anns:
-            logger.warn('There is no annotations data in {}'.format(ann_name))
-            continue
+            logger.warn('There is no annotations data in {}, only videos will be download'.format(ann_name))
 
         for category in ann_json['categories']:
             if category['id'] not in ovis_classes.keys():
@@ -122,15 +120,17 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
         api.project.update_meta(new_project.id, meta.to_json())
 
         anns = defaultdict(list)
-        for ovis_ann in ovis_anns:
-            anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
+        if ovis_anns:
+            for ovis_ann in ovis_anns:
+                anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
 
         for video_data in videos:
             no_image = False
-            curr_anns = anns[video_data['id']]
             video_objects = {}
-            for curr_ann in curr_anns:
-                video_objects[curr_ann[1]] = sly.VideoObject(id_to_obj_classes[curr_ann[0]])
+            if ovis_anns:
+                curr_anns = anns[video_data['id']]
+                for curr_ann in curr_anns:
+                    video_objects[curr_ann[1]] = sly.VideoObject(id_to_obj_classes[curr_ann[0]])
 
             #=============================create video===============================================================
             img_size = (video_data['width'], video_data['height'])
@@ -160,17 +160,18 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             frames = []
             for idx in range(len(images)):
                 figures = []
-                for fig_id, curr_ann in enumerate(curr_anns):
-                    ovis_geom = curr_ann[2][idx]
-                    if ovis_geom:
-                        mask = decode(ovis_geom).astype(bool)
-                        if img_size[1] % 2 == 1:
-                            mask[mask.shape[0] - 1, :] = False
-                        if img_size[0] % 2 == 1:
-                            mask[:, mask.shape[1] - 1] = False
-                        geom = sly.Bitmap(mask)
-                        figure = sly.VideoFigure(video_objects[curr_ann[1]], geom, idx)
-                        figures.append(figure)
+                if ovis_anns:
+                    for fig_id, curr_ann in enumerate(curr_anns):
+                        ovis_geom = curr_ann[2][idx]
+                        if ovis_geom:
+                            mask = decode(ovis_geom).astype(bool)
+                            if img_size[1] % 2 == 1:
+                                mask[mask.shape[0] - 1, :] = False
+                            if img_size[0] % 2 == 1:
+                                mask[:, mask.shape[1] - 1] = False
+                            geom = sly.Bitmap(mask)
+                            figure = sly.VideoFigure(video_objects[curr_ann[1]], geom, idx)
+                            figures.append(figure)
                 new_frame = sly.Frame(idx, figures)
                 frames.append(new_frame)
 
