@@ -8,7 +8,7 @@
   "docker_image": "supervisely/base-py-sdk:6.1.64",
   "main_script": "src/main.py",
   "task_location": "workspace_tasks",
-  "icon": "https://i.imgur.com/i0WHkUF.png",
+  "icon": "https://i.imgur.com/prNo95I.png",
   "icon_background": "#FFFFFF",
   "context_menu": {
     "target": ["files_folder", "files_file"]
