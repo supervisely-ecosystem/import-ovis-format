@@ -62,7 +62,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     search_anns = os.path.join(input_dir, "annotations_*.json")
     anns_fine_paths = glob.glob(search_anns)
     if len(anns_fine_paths) == 0:
-        logger.warn('There is no annotations in input data. Check your input format')
+        logger.warn('There is no annotations in input data. Check your input format.')
     anns_fine_paths.sort()
 
     ovis_classes = {}

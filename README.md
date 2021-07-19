@@ -23,6 +23,21 @@
 
 ## Overview
 
+**OVIS** (short for **O**ccluded **V**ideo **I**nstance **S**egmentation) is a large scale benchmark dataset for video instance segmentation task. It is designed with the philosophy of perceiving object occlusions in videos, which could reveal the complexity and the diversity of real-world scenes.
+
+**OVIS consist of:**
+
+- 296k high-quality instance masks
+- 25 commonly seen semantic categories
+- 901 videos with severe object occlusions
+- 5,223 unique instances
+
+Given a video, all the objects belonging to the pre-defined category set are exhaustively annotated. All the videos are annotated per 5 frames.
+
+The 25 semantic categories in OVIS are *Person, Bird, Cat, Dog, Horse, Sheep, Cow, Elephant, Bear, Zebra, Giraffe, Poultry, Giant panda, Lizard, Parrot, Monkey, Rabbit, Tiger, Fish, Turtle, Bicycle, Motorcycle, Airplane, Boat*, and *Vehicle*.
+
+<img src="http://songbai.site/ovis/data/webp/2524877_0_170.webp"/>
+
 Import data in [OVIS](http://songbai.site/ovis/) format to [Supervisely](https://supervise.ly/) from folder or `tar` archive.
 
 ## Preparation
@@ -49,8 +64,6 @@ Upload your data in `OVIS` format to `Team Files` (for example you can create `i
 ```
 
 #### Note:
-
-If you will drag and drop archive with parent directory instead of its content, import will crash.
 
 Annotations file must contain `annotations` in its name. The images archive must have a name that matches the line in the annotation file name after the `_` and before the extension(like `annotations_train.json` and `train.zip`). If you do not comply with these conditions import will crash.
 
