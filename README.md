@@ -84,4 +84,4 @@ Resulting project will be placed to your current `Workspace` with the same name 
 
 You can also access your project by clicking on it's name from `Tasks` page.
 
-<img src="https://i.imgur.com/h54uGur.png">
+<img src="https://i.imgur.com/v3aEGAE.png">
