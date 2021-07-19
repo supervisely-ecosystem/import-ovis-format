@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/VsSAl4b.jpg" height="450px"/>
+<img src="https://i.imgur.com/NWFtLmc.jpg"/>
 
 
 
@@ -46,21 +46,20 @@ Upload your data in `OVIS` format to `Team Files` (for example you can create `i
 
 <img src="https://i.imgur.com/45uOaK0.png"/>
 
-#### Structure of directory or archive have to be the following:   
+#### Structure of archive or directory have to be the following:   
 ```
-.
-├── train.zip
-│   ├── 0b4b662c
-|   |	├── img_0000001.jpg
-|   |	├── img_0000002.jpg
-|   |	├── ...
-│   ├── 2f477d05
-|   |	├── img_0000001.jpg
-|   |	├── img_0000002.jpg
-|   |	├── ...
-│   └── ...
-│    
-└── annotations_train.json
+.                                       .
+└── train.zip                           └── ovis_data
+    ├── annotations_train.json              ├── annotations_train.json
+    ├── 0b4b662c                            ├── 0b4b662c
+    |	├── img_0000001.jpg                 |	├── img_0000001.jpg
+    |	├── img_0000002.jpg                 |	├── img_0000002.jpg
+    |	├── ...                             |	├── ...
+    ├── 2f477d05                            ├── 2f477d05
+    |	├── img_0000001.jpg                 |	├── img_0000001.jpg
+    |	├── img_0000002.jpg                 |	├── img_0000002.jpg
+    |	├── ...                             |	├── ...
+    └── ...                                 └── ...
 ```
 
 #### Note:
@@ -79,7 +78,7 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 ## How to use
 
-Resulting project will be placed to your current `Workspace` with the same name as the `ovis` archive. Videos in datasets will have tags (`train`, `val`, `test`) corresponding to input data.
+Resulting project will be placed to your current `Workspace` with the same name as the `ovis` data directory or archive. Videos in datasets will have tags (`train`, `val`, `test`) corresponding to input data.
 
 <img src="https://i.imgur.com/UC0ygAH.png"/>
 
