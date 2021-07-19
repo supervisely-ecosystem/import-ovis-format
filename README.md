@@ -1,5 +1,6 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/48JFbtt.png" width="1900px"/>
+<img src="https://i.imgur.com/VsSAl4b.jpg" height="450px"/>
+
 
 
 # Import OVIS
@@ -55,7 +56,7 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 ## How To Run 
 
-**Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervise.ly/apps/import-cityscapes) if it is not there.
+**Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervise.ly/apps/import-ovis-format) if it is not there.
 
 **Step 2**: Go to `Current Team`->`Files` page, right-click on your `.tar` archive or `folder`, containing `ovis` data and choose `Run App`->`Import Ovis`. You will be redirected to `Workspace`->`Tasks` page. 
 
