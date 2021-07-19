@@ -36,7 +36,7 @@ Given a video, all the objects belonging to the pre-defined category set are exh
 
 The 25 semantic categories in OVIS are *Person, Bird, Cat, Dog, Horse, Sheep, Cow, Elephant, Bear, Zebra, Giraffe, Poultry, Giant panda, Lizard, Parrot, Monkey, Rabbit, Tiger, Fish, Turtle, Bicycle, Motorcycle, Airplane, Boat*, and *Vehicle*.
 
-<img src="http://songbai.site/ovis/data/webp/2524877_0_170.webp"/>
+<img src="http://songbai.site/ovis/data/webp/2524877_0_170.webp"/><img src="http://songbai.site/ovis/data/webp/2932104.webp"/><img src="http://songbai.site/ovis/data/webp/3383476.webp"/>
 
 Import data in [OVIS](http://songbai.site/ovis/) format to [Supervisely](https://supervise.ly/) from folder or `tar` archive.
 
