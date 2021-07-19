@@ -48,18 +48,22 @@ Upload your data in `OVIS` format to `Team Files` (for example you can create `i
 
 #### Structure of archive or directory have to be the following:   
 ```
-.                                       .
-└── train.zip                           └── ovis_data
-    ├── annotations_train.json              ├── annotations_train.json
-    ├── 0b4b662c                            ├── 0b4b662c
-    |	├── img_0000001.jpg                 |	├── img_0000001.jpg
-    |	├── img_0000002.jpg                 |	├── img_0000002.jpg
-    |	├── ...                             |	├── ...
-    ├── 2f477d05                            ├── 2f477d05
-    |	├── img_0000001.jpg                 |	├── img_0000001.jpg
-    |	├── img_0000002.jpg                 |	├── img_0000002.jpg
-    |	├── ...                             |	├── ...
-    └── ...                                 └── ...
+ .                                   .                             
+ └── ovis_data                       └── ovis_data.zip
+     ├── train.zip                       └── ovis_data                  
+     │   ├── 0b4b662c                        ├── train.zip             
+     |   |	├── img_0000001.jpg              │   ├── 0b4b662c          
+     |   |	├── img_0000002.jpg              |   |	├── img_0000001.jpg
+     |   |	├── ...                          |   |	├── img_0000002.jpg
+     │   ├── 2f477d05                        |   |	├── ...            
+     |   |	├── img_0000001.jpg              │   ├── 2f477d05          
+     |   |	├── img_0000002.jpg              |   |	├── img_0000001.jpg
+     |   |	├── ...                          |   |	├── img_0000002.jpg
+     │   └── ...                             |   |	├── ...            
+     │                                       │   └── ...               
+     └── annotations_train.json              │                         
+                                             └── annotations_train.json
+
 ```
 
 #### Note:
