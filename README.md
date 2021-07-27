@@ -69,7 +69,7 @@ Upload your data in `OVIS` format to `Team Files` (for example you can create `i
 ```
  .                                   .                             
  └── ovis_data                       └── ovis_data.zip
-     ├── train.zip                       └── ovis_data                  
+     ├── train.zip                           |   
      │   ├── 0b4b662c                        ├── train.zip             
      |   |	├── img_0000001.jpg              │   ├── 0b4b662c          
      |   |	├── img_0000002.jpg              |   |	├── img_0000001.jpg
