@@ -1,5 +1,6 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/NWFtLmc.jpg"/>
+<img src="https://i.imgur.com/fO42F3p.jpg"/>
+
 
 
 
@@ -23,9 +24,9 @@
 
 ## Overview
 
-**OVIS** (short for **O**ccluded **V**ideo **I**nstance **S**egmentation) is a large scale benchmark dataset for video instance segmentation task. It is designed with the philosophy of perceiving object occlusions in videos, which could reveal the complexity and the diversity of real-world scenes.
+**[OVIS](http://songbai.site/ovis/)** (short for **O**ccluded **V**ideo **I**nstance **S**egmentation) is a large scale benchmark dataset for video instance segmentation task. It is designed with the philosophy of perceiving object occlusions in videos, which could reveal the complexity and the diversity of real-world scenes.
 
-**OVIS consist of:**
+**OVIS public date consist of:**
 
 - 296k high-quality instance masks
 - 25 commonly seen semantic categories
@@ -38,7 +39,25 @@ The 25 semantic categories in OVIS are *Person, Bird, Cat, Dog, Horse, Sheep, Co
 
 <img src="http://songbai.site/ovis/data/webp/2524877_0_170.webp"/><img src="http://songbai.site/ovis/data/webp/2932104.webp"/><img src="http://songbai.site/ovis/data/webp/3383476.webp"/><img src="http://songbai.site/ovis/data/webp/3021160.webp"/>
 
-Import data in [OVIS](http://songbai.site/ovis/) format to [Supervisely](https://supervise.ly/) from folder or `tar` archive.
+
+
+## Get access to data
+
+Click `Dataset Download` in [OVIS](http://songbai.site/ovis/)  main page. 
+
+<img src="https://i.imgur.com/kM6yQMv.png" width="600"/>
+
+Register in opened form.
+
+Click `participate` tab and choose `Google Drive` link. 
+
+<img src="https://i.imgur.com/3rxQhpX.png" width="900"/>
+
+You will be redirected to Google Drive with data in OVIS format. Load data you need to use in your work.
+
+<img src="https://i.imgur.com/OVSVyZS.png" width="900"/>
+
+Now, you can import loaded data to [Supervisely](https://supervise.ly/).
 
 ## Preparation
 

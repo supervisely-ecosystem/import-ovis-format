@@ -9,6 +9,7 @@
   "main_script": "src/main.py",
   "task_location": "workspace_tasks",
   "icon": "https://i.imgur.com/prNo95I.png",
+  "headless": true,
   "icon_background": "#FFFFFF",
   "context_menu": {
     "target": ["files_folder", "files_file"]
