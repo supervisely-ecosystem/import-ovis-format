@@ -43,17 +43,17 @@ The 25 semantic categories in OVIS are *Person, Bird, Cat, Dog, Horse, Sheep, Co
 
 ## Get access to data
 
-Click `Dataset Download` in [OVIS](http://songbai.site/ovis/)  main page. 
+Click `Dataset Download` on [OVIS](http://songbai.site/ovis/) main page. 
 
-<img src="https://i.imgur.com/kM6yQMv.png" width="600"/>
+<img src="https://i.imgur.com/kM6yQMv.png" width="550"/>
 
-Register in opened form.
+`Sign up` in opened form.
 
 Click `participate` tab and choose `Google Drive` link. 
 
 <img src="https://i.imgur.com/3rxQhpX.png" width="900"/>
 
-You will be redirected to Google Drive with data in OVIS format. Load data you need to use in your work.
+You will be redirected to `Google Drive` with data in `OVIS` format. Load data you need to use in your work.
 
 <img src="https://i.imgur.com/OVSVyZS.png" width="900"/>
 
