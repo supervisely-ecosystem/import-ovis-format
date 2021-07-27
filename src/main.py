@@ -124,6 +124,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             for ovis_ann in ovis_anns:
                 anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
 
+        progress = sly.Progress('Create video', len(videos), app_logger)
         for video_data in videos:
             no_image = False
             video_objects = {}
@@ -141,7 +142,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                 logger.warn('There is no folder {} in the input data, but it is in annotation'.format(images_path))
                 continue
             images = os.listdir(images_path)
-            progress = sly.Progress('Create video', len(videos), app_logger)
             video_path = os.path.join(extract_dir, video_name)
             video = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'MP4V'), frame_rate, img_size)
             for curr_ovis_im_path in video_data['file_names']:
@@ -152,7 +152,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                     no_image = True
                     break
                 video.write(cv2.imread(curr_im_path))
-                progress.iter_done_report()
+            progress.iter_done_report()
             if no_image:
                 continue
             video.release()
