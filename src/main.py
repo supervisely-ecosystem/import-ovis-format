@@ -33,32 +33,6 @@ def decode(rleObjs):
         return _mask.decode([rleObjs])[:,:,0]
 
 
-def _set_progress(index, api, task_id, message, current_label, total_label, current, total):
-    fields = [
-        {"field": f"data.progressName{index}", "payload": message},
-        {"field": f"data.currentProgressLabel{index}", "payload": current_label},
-        {"field": f"data.totalProgressLabel{index}", "payload": total_label},
-        {"field": f"data.currentProgress{index}", "payload": current},
-        {"field": f"data.totalProgress{index}", "payload": total},
-    ]
-    api.task.set_fields(task_id, fields)
-
-
-def update_progress(count, index, api: sly.Api, task_id, progress: sly.Progress):
-    count = min(count, progress.total - progress.current)
-    progress.iters_done(count)
-    if progress.need_report():
-        progress.report_progress()
-        _set_progress(index, api, task_id, progress.message, progress.current_label, progress.total_label, progress.current, progress.total)
-
-
-def get_progress_cb(api, task_id, index, message, total, is_size=False, func=update_progress):
-    progress = sly.Progress(message, total, is_size=is_size)
-    progress_cb = partial(func, index=index, api=api, task_id=task_id, progress=progress)
-    progress_cb(0)
-    return progress_cb
-
-
 @my_app.callback("import_ovis")
 @sly.timeit
 def import_ovis(api: sly.Api, task_id, context, state, app_logger):
@@ -151,11 +125,9 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
             for ovis_ann in ovis_anns:
                 anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
 
-        progress = sly.Progress('Create video', len(videos), app_logger)
-        #progress_items_cb = get_progress_cb(api, task_id, 1, "Create video", len(videos))
+        progress = sly.Progress('Processed video', len(videos), app_logger)
         for video_data in videos:
             progress.iter_done_report()
-            #progress_items_cb(1)
             no_image = False
             video_objects = {}
             if ovis_anns:
@@ -182,7 +154,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                     no_image = True
                     break
                 video.write(cv2.imread(curr_im_path))
-            #progress.iter_done_report()
 
             if no_image:
                 continue
