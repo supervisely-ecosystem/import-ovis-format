@@ -152,8 +152,9 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                 anns[ovis_ann['video_id']].append([ovis_ann['category_id'], ovis_ann['id'], ovis_ann['segmentations']])
 
         #progress = sly.Progress('Create video', len(videos), app_logger)
-        progress_items_cb = get_progress_cb(api, task_id, 1, "Convert frames", len(videos))
+        progress_items_cb = get_progress_cb(api, task_id, 1, "Create video", len(videos))
         for video_data in videos:
+            progress_items_cb(1)
             no_image = False
             video_objects = {}
             if ovis_anns:
@@ -181,7 +182,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                     break
                 video.write(cv2.imread(curr_im_path))
             #progress.iter_done_report()
-            progress_items_cb(1)
+
             if no_image:
                 continue
             video.release()
