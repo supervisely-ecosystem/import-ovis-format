@@ -38,7 +38,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     storage_dir = my_app.data_dir
 
     if INPUT_DIR:
-        logger.warn('INPUT_DIR')
         cur_files_path = INPUT_DIR
         extract_dir = os.path.join(storage_dir, str(Path(cur_files_path).parent).lstrip("/"))
         input_dir = os.path.join(extract_dir, Path(cur_files_path).name)
@@ -52,7 +51,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
         input_dir = extract_dir
 
     api.file.download(TEAM_ID, cur_files_path, archive_path)
-    logger.warn('archive_path: {}'.format(archive_path))
 
     if tarfile.is_tarfile(archive_path):
         with tarfile.open(archive_path) as archive:
@@ -65,7 +63,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
     if len(anns_fine_paths) == 0:
         logger.warn('There is no annotations in input data. Check your input format.')
     anns_fine_paths.sort()
-    logger.warn('anns_fine_paths: {}'.format(anns_fine_paths))
 
     ovis_classes = {}
     id_to_obj_classes = {}
@@ -79,8 +76,6 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
         ann_name = str(Path(ann_path).name)
         arch_name = sly.fs.get_file_name(ann_name).split('_')[1] + archive_ext
         arch_path = os.path.join(input_dir, arch_name)
-        logger.warn('arch_path: {}'.format(arch_path))
-        logger.warn('input_dir: {}'.format(os.listdir(input_dir)))
         curr_tag_name = sly.fs.get_file_name(arch_path)
         if curr_tag_name == valid:
             curr_tag_name = val
