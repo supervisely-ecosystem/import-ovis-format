@@ -80,6 +80,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
         arch_name = sly.fs.get_file_name(ann_name).split('_')[1] + archive_ext
         arch_path = os.path.join(input_dir, arch_name)
         logger.warn('arch_path: {}'.format(arch_path))
+        logger.warn('input_dir: {}'.format(os.listdir(input_dir)))
         curr_tag_name = sly.fs.get_file_name(arch_path)
         if curr_tag_name == valid:
             curr_tag_name = val
