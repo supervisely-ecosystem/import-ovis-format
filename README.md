@@ -93,7 +93,7 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 **Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervise.ly/apps/import-ovis-format) if it is not there.
 
-**Step 2**: Go to `Current Team`->`Files` page, right-click on your `.tar` archive or `folder`, containing `ovis` data and choose `Run App`->`Import Ovis`. You will be redirected to `Workspace`->`Tasks` page. 
+**Step 2**: Go to `Current Team`->`Files` page, right-click on your `.tar` archive or `folder`, containing `ovis` data and choose `Run App`->`Import OVIS`. You will be redirected to `Workspace`->`Tasks` page. 
 
 <img src="https://i.imgur.com/dJr5sLz.png"/>
 
@@ -101,7 +101,7 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 ## How to use
 
-Resulting project will be placed to your current `Workspace` with the same name as the `ovis` data directory or archive. Videos in datasets will have tags (`train`, `val`, `test`) corresponding to input data.
+Resulting `Project` will be placed to your current `Workspace` with the same name as the `ovis` data directory or archive name. `Datasets` will have names corresponding to  images archives names in input folder(archive). Videos in datasets will have tags (`train`, `val`, `test`) corresponding to input data.
 
 <img src="https://i.imgur.com/UC0ygAH.png"/>
 

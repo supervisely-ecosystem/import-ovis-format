@@ -9,7 +9,6 @@ import pycocotools._mask as _mask
 from collections import defaultdict
 from supervisely_lib.video_annotation.video_tag import VideoTag
 from supervisely_lib.video_annotation.video_tag_collection import VideoTagCollection
-from functools import partial
 
 
 my_app = sly.AppService()
@@ -17,7 +16,6 @@ TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 INPUT_DIR = os.environ.get("modal.state.slyFolder")
 INPUT_FILE = os.environ.get("modal.state.slyFile")
-PROJECT_NAME = 'OVIS'
 logger = sly.logger
 archive_ext = '.zip'
 frame_rate = 5
@@ -115,7 +113,7 @@ def import_ovis(api: sly.Api, task_id, context, state, app_logger):
                         'Category with id {} corresponds to the value {}, not {}. Check your input annotations'.format(
                             category['id'], ovis_classes[category['id']], category['name']))
 
-        new_dataset = api.dataset.create(new_project.id, sly.fs.get_file_name(ann_name), change_name_if_conflict=True)
+        new_dataset = api.dataset.create(new_project.id, sly.fs.get_file_name(sly.fs.get_file_name(arch_name)), change_name_if_conflict=True)
         new_meta = sly.ProjectMeta(sly.ObjClassCollection(list(id_to_obj_classes.values())))
         meta = meta.merge(new_meta)
         api.project.update_meta(new_project.id, meta.to_json())
