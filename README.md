@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/fO42F3p.jpg"/>
+<img src="media/poster.jpeg"/>
 
 
 
@@ -37,7 +37,7 @@ Given a video, all the objects belonging to the pre-defined category set are exh
 
 The 25 semantic categories in OVIS are *Person, Bird, Cat, Dog, Horse, Sheep, Cow, Elephant, Bear, Zebra, Giraffe, Poultry, Giant panda, Lizard, Parrot, Monkey, Rabbit, Tiger, Fish, Turtle, Bicycle, Motorcycle, Airplane, Boat*, and *Vehicle*.
 
-<img src="http://songbai.site/ovis/data/webp/2524877_0_170.webp"/><img src="http://songbai.site/ovis/data/webp/2932104.webp"/><img src="http://songbai.site/ovis/data/webp/3383476.webp"/><img src="http://songbai.site/ovis/data/webp/3021160.webp"/>
+<img src="media/ov.webp"/><img src="media/ov2.webp"/><img src="media/ov3.webp"/><img src="media/ov4.webp"/>
 
 
 
@@ -45,17 +45,17 @@ The 25 semantic categories in OVIS are *Person, Bird, Cat, Dog, Horse, Sheep, Co
 
 Click `Dataset Download` on [OVIS](http://songbai.site/ovis/) main page. 
 
-<img src="https://i.imgur.com/kM6yQMv.png" width="550"/>
+<img src="media/data.png" width="550"/>
 
 `Sign up` in opened form.
 
 Click `participate` tab and choose `Google Drive` link. 
 
-<img src="https://i.imgur.com/3rxQhpX.png" width="900"/>
+<img src="media/data2.png" width="900"/>
 
 You will be redirected to `Google Drive` with data in `OVIS` format. Load data you need to use in your work.
 
-<img src="https://i.imgur.com/OVSVyZS.png" width="900"/>
+<img src="media/data3.png" width="900"/>
 
 Now, you can import loaded data to [Supervisely](https://supervise.ly/).
 
@@ -63,7 +63,7 @@ Now, you can import loaded data to [Supervisely](https://supervise.ly/).
 
 Upload your data in `OVIS` format to `Team Files` (for example you can create `import_ovis` folder). You can also upload data from `.tar` archive.
 
-<img src="https://i.imgur.com/45uOaK0.png"/>
+<img src="media/prep.png"/>
 
 #### Structure of archive or directory have to be the following:   
 ```
@@ -95,7 +95,7 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 **Step 2**: Go to `Current Team`->`Files` page, right-click on your `.tar` archive or `folder`, containing `ovis` data and choose `Run App`->`Import OVIS`. You will be redirected to `Workspace`->`Tasks` page. 
 
-<img src="https://i.imgur.com/dJr5sLz.png"/>
+<img src="media/htr2.png"/>
 
 
 
@@ -103,8 +103,8 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 Resulting `Project` will be placed to your current `Workspace` with the same name as the `ovis` data directory or archive name. `Datasets` will have names corresponding to  images archives names in input folder(archive). Videos in datasets will have tags (`train`, `val`, `test`) corresponding to input data.
 
-<img src="https://i.imgur.com/UC0ygAH.png"/>
+<img src="media/htu.png"/>
 
 You can also access your project by clicking on it's name from `Tasks` page.
 
-<img src="https://i.imgur.com/v3aEGAE.png">
+<img src="media/htu2.png">
