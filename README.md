@@ -14,11 +14,11 @@
 </p>
 
 
-[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
+[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/import-ovis-format)
-[![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-ovis-format&counter=views&label=views)](https://supervise.ly)
-[![used by teams](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-ovis-format&counter=downloads&label=used%20by%20teams)](https://supervise.ly)
-[![runs](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-ovis-format&counter=runs&label=runs&123)](https://supervise.ly)
+[![views](https://app.supervisely.com/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-ovis-format&counter=views&label=views)](https://supervisely.com)
+[![used by teams](https://app.supervisely.com/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-ovis-format&counter=downloads&label=used%20by%20teams)](https://supervisely.com)
+[![runs](https://app.supervisely.com/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-ovis-format&counter=runs&label=runs&123)](https://supervisely.com)
 
 </div>
 
@@ -57,7 +57,7 @@ You will be redirected to `Google Drive` with data in `OVIS` format. Load data y
 
 <img src="https://i.imgur.com/OVSVyZS.png" width="900"/>
 
-Now, you can import loaded data to [Supervisely](https://supervise.ly/).
+Now, you can import loaded data to [Supervisely](https://supervisely.com/).
 
 ## Preparation
 
@@ -91,7 +91,7 @@ Annotations file must contain `annotations` in its name. The images archive must
 
 ## How To Run 
 
-**Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervise.ly/apps/import-ovis-format) if it is not there.
+**Step 1**: Add app to your team from [Ecosystem](https://ecosystem.supervisely.com/apps/import-ovis-format) if it is not there.
 
 **Step 2**: Go to `Current Team`->`Files` page, right-click on your `.tar` archive or `folder`, containing `ovis` data and choose `Run App`->`Import OVIS`. You will be redirected to `Workspace`->`Tasks` page. 
 
